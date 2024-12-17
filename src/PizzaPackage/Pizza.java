@@ -9,7 +9,7 @@ public class Pizza {
     private String crust;
     private String sauce;
     private String cheese;
-    private List<String> toppings;
+    private String toppings;
     private Size size;
     private double price;
 
@@ -24,16 +24,68 @@ public class Pizza {
     }
 
     private void calculatePrice() {
-        double basePrice = 8.0; // Base price for the pizza
-        double toppingPrice = 1.5; // Example price per topping
+        double basePrice = 1000.0; // Base price for the pizza
+        double toppingPrice = 100.5; // Price per topping
+        double crustPrice = 0.0; // Additional cost based on crust
+        double cheesePrice = 0.0; // Additional cost based on cheese
+        double saucePrice = 0.0; // Additional cost based on sauce
+        
+        // Adjust the base price based on crust
+        switch (crust) {
+            case "Thin Crust":
+                crustPrice = 100.0;
+                break;
+            case "Medium Crust":
+                crustPrice = 200.0;
+                break;
+            default: // Thick crust
+                crustPrice = 300.0;
+        }
 
-        // Add the size multiplier
-        price = basePrice * size.getPriceMultiplier();
+        // Adjust the price based on cheese type
+        switch (cheese) {
+            case "Parmesan":
+                cheesePrice = 100.0;
+                break;
+            case "Mozzarella":
+                cheesePrice = 200.2;
+                break;
+            default: // Chedder
+                cheesePrice = 130.5;
+        }
 
-        // Add the price of toppings
-        price += toppings.size() * toppingPrice;
+        // Adjust the price based on sauce type
+        switch (sauce) {
+            case "Tomato Sauce":
+                saucePrice = 340.5;
+                break;
+            case "Alfredo Sauce":
+                saucePrice = 210.0;
+                break;
+            default: // Garlic Sauce
+                saucePrice = 150.2;
+        }
+        
+        // Adjust the price based on toppings type
+        switch (toppings) {
+            case "Pepperoni":
+                toppingPrice = 140.6;
+                break;
+            case "Bell Peppers":
+                toppingPrice = 110.3;
+                break;
+            default: // Pineapple
+                toppingPrice = 120.4;
+        }
 
-        // Optionally add more logic for crust, cheese, or sauce customization
+        // Calculate total price
+        price = basePrice; // Start with the base price
+        price += crustPrice; // Add the crust cost
+        price += cheesePrice; // Add the cheese cost
+        price += saucePrice; // Add the sauce cost
+        price += toppingPrice; // Add the price of toppings
+        price *= size.getPriceMultiplier(); // Adjust for size multiplier
+        price = Math.round(price * 100.0) / 100.0; // Round up the value
     }
 
     // Getters
@@ -53,7 +105,7 @@ public class Pizza {
         return cheese;
     }
 
-    public List<String> getToppings() {
+    public String getToppings() {
         return toppings;
     }
 
@@ -72,7 +124,7 @@ public class Pizza {
         private String crust;
         private String sauce;
         private String cheese;
-        private List<String> toppings = new ArrayList<>();
+        private String toppings;
         private Size size = Size.MEDIUM;
 
         public PizzaBuilder withName(String name) {
@@ -96,7 +148,7 @@ public class Pizza {
         }
 
         public PizzaBuilder addTopping(String topping) {
-            this.toppings.add(topping);
+            this.toppings = topping;
             return this;
         }
 
@@ -123,5 +175,75 @@ public class Pizza {
         public double getPriceMultiplier() {
             return priceMultiplier;
         }
+    }
+}
+
+// Decorators for extra features
+interface PizzaDecorator{
+    String getDescription();
+    double getCost();
+}
+
+
+class BasicPizza implements PizzaDecorator {
+    @Override
+    public String getDescription() {
+        return "Basic Pizza";
+    }
+
+    @Override
+    public double getCost() {
+        return 0.0;
+    }
+}
+
+abstract class ExtraFeatures implements PizzaDecorator {
+    protected PizzaDecorator decoratedPizza;
+
+    public ExtraFeatures(PizzaDecorator decoratedPizza) {
+        this.decoratedPizza = decoratedPizza;
+    }
+
+    @Override
+    public String getDescription() {
+        return decoratedPizza.getDescription();
+    }
+
+    @Override
+    public double getCost() {
+        return decoratedPizza.getCost();
+    }
+}
+
+class PackagingDecorator extends ExtraFeatures {
+    public PackagingDecorator(PizzaDecorator decoratedPizza) {
+        super(decoratedPizza);
+    }
+
+    @Override
+    public String getDescription() {
+        return super.getDescription() + ", Special Packaging";
+    }
+
+    @Override
+    public double getCost() {
+        return super.getCost() + 250.0;
+    }
+}
+
+
+class ExtraToppingDecorator extends ExtraFeatures {
+    public ExtraToppingDecorator(PizzaDecorator decoratedPizza) {
+        super(decoratedPizza);
+    }
+
+    @Override
+    public String getDescription() {
+        return super.getDescription() + ", Extra Toppings";
+    }
+
+    @Override
+    public double getCost() {
+        return super.getCost() + 350.0;
     }
 }

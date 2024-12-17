@@ -53,47 +53,41 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lblDescription" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jScrollPane4" max="32767" attributes="0"/>
+                  </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cmbToppings2" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
+                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbCrust" min="-2" pref="156" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbSauce" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
+                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbToppings" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="cmbCheese" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
-                          <Component id="cmbToppings3" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtName" min="-2" pref="185" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                              <Component id="jRadioButton2" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkExtraPackaging" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkExtraToppings" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton1" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cmbCrust" min="-2" pref="156" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cmbSauce" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cmbToppings1" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jButton1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtName" min="-2" pref="185" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                          <Component id="jRadioButton2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -114,7 +108,7 @@
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                      <Component id="cmbToppings1" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbToppings" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
@@ -132,23 +126,32 @@
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="163" pref="163" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Component id="chkExtraPackaging" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="cmbToppings2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="cmbToppings3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="cmbCheese" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane2" min="-2" pref="94" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="chkExtraToppings" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbCheese" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jScrollPane2" min="-2" pref="129" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="lblDescription" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="jScrollPane4" pref="110" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -257,7 +260,7 @@
         <Property name="text" type="java.lang.String" value="Select Toppings"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cmbToppings1">
+    <Component class="javax.swing.JComboBox" name="cmbToppings">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
@@ -283,34 +286,6 @@
             <StringItem index="0" value="Parmesan"/>
             <StringItem index="1" value="Mozzarella"/>
             <StringItem index="2" value="Cheddar"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="cmbToppings2">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Pepperoni"/>
-            <StringItem index="1" value="Bell Peppers"/>
-            <StringItem index="2" value="Pineapple"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="cmbToppings3">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Pepperoni"/>
-            <StringItem index="1" value="Bell Peppers"/>
-            <StringItem index="2" value="Pineapple"/>
           </StringArray>
         </Property>
       </Properties>
@@ -372,15 +347,46 @@
         <Component class="javax.swing.JTable" name="pizzaTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="0">
+              <Table columnCount="7" rowCount="0">
                 <Column editable="false" title="Name" type="java.lang.String"/>
                 <Column editable="false" title="Crust" type="java.lang.String"/>
                 <Column editable="false" title="Sauce" type="java.lang.String"/>
                 <Column editable="false" title="Toppings" type="java.lang.String"/>
                 <Column editable="false" title="Cheese" type="java.lang.String"/>
                 <Column editable="false" title="Size" type="java.lang.String"/>
+                <Column editable="false" title="Price (1)" type="java.lang.Double"/>
               </Table>
             </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="lblDescription">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Process Output:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkExtraPackaging">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Extra Packaging"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkExtraToppings">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Extra Toppings"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="txtDescription">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
           </Properties>
         </Component>
       </SubComponents>

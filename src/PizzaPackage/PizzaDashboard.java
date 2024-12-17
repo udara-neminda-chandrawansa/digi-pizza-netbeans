@@ -22,6 +22,9 @@ public class PizzaDashboard extends javax.swing.JFrame {
         jRadioButton1.setActionCommand("Small");
         jRadioButton2.setActionCommand("Medium");
         jRadioButton3.setActionCommand("Large");
+        
+        // refresh pizza table
+        refreshPizzaTable();
     }
 
     @SuppressWarnings("unchecked")
@@ -34,7 +37,7 @@ public class PizzaDashboard extends javax.swing.JFrame {
         for (Pizza pizza : pizzaList) {
             // add a new row with new data
             model.addRow(new Object[]{"" + pizza.getName(), pizza.getCrust(), pizza.getSauce(),
-                pizza.getToppings().get(0) + " | " + pizza.getToppings().get(1) + " | " + pizza.getToppings().get(2), pizza.getCheese(), pizza.getSize()});
+                pizza.getToppings(), pizza.getCheese(), pizza.getSize(), pizza.getPrice()});
         };
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -51,11 +54,9 @@ public class PizzaDashboard extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cmbSauce = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        cmbToppings1 = new javax.swing.JComboBox<>();
+        cmbToppings = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         cmbCheese = new javax.swing.JComboBox<>();
-        cmbToppings2 = new javax.swing.JComboBox<>();
-        cmbToppings3 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
@@ -65,6 +66,11 @@ public class PizzaDashboard extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         pizzaTable = new javax.swing.JTable();
+        lblDescription = new javax.swing.JLabel();
+        chkExtraPackaging = new javax.swing.JCheckBox();
+        chkExtraToppings = new javax.swing.JCheckBox();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtDescription = new javax.swing.JTextArea();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -128,15 +134,11 @@ public class PizzaDashboard extends javax.swing.JFrame {
 
         jLabel4.setText("Select Toppings");
 
-        cmbToppings1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pepperoni", "Bell Peppers", "Pineapple" }));
+        cmbToppings.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pepperoni", "Bell Peppers", "Pineapple" }));
 
         jLabel5.setText("Select Cheese");
 
         cmbCheese.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Parmesan", "Mozzarella", "Cheddar" }));
-
-        cmbToppings2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pepperoni", "Bell Peppers", "Pineapple" }));
-
-        cmbToppings3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pepperoni", "Bell Peppers", "Pineapple" }));
 
         jButton1.setText("Make Pizza");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -163,14 +165,14 @@ public class PizzaDashboard extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Name", "Crust", "Sauce", "Toppings", "Cheese", "Size"
+                "Name", "Crust", "Sauce", "Toppings", "Cheese", "Size", "Price (1)"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -183,6 +185,16 @@ public class PizzaDashboard extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(pizzaTable);
 
+        lblDescription.setText("Process Output:");
+
+        chkExtraPackaging.setText("Extra Packaging");
+
+        chkExtraToppings.setText("Extra Toppings");
+
+        txtDescription.setColumns(20);
+        txtDescription.setRows(5);
+        jScrollPane4.setViewportView(txtDescription);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -191,37 +203,35 @@ public class PizzaDashboard extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblDescription)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane4))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbToppings2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(cmbCrust, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(cmbSauce, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(cmbToppings, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addComponent(cmbCheese, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbToppings3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                            .addComponent(cmbCheese, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(115, 115, 115)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(cmbCrust, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(cmbSauce, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(cmbToppings1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(115, 115, 115)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton1)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel6)
-                                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jRadioButton1)
-                                            .addComponent(jRadioButton3))
-                                        .addComponent(jLabel7)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addContainerGap())))
+                            .addComponent(jLabel6)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jRadioButton1)
+                                .addComponent(jRadioButton3))
+                            .addComponent(jLabel7)
+                            .addComponent(chkExtraPackaging)
+                            .addComponent(chkExtraToppings)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +250,7 @@ public class PizzaDashboard extends javax.swing.JFrame {
                         .addGap(21, 21, 21)
                         .addComponent(jLabel4)
                         .addGap(19, 19, 19)
-                        .addComponent(cmbToppings1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbToppings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
@@ -255,34 +265,67 @@ public class PizzaDashboard extends javax.swing.JFrame {
                         .addComponent(jRadioButton3)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addComponent(jButton1))
+                        .addGap(18, 18, 18)
+                        .addComponent(chkExtraPackaging))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(cmbToppings2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(cmbToppings3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbCheese, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel5)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chkExtraToppings)
+                    .addComponent(cmbCheese, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblDescription)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void ExtraOptions(){
+        //
+        // ** This is an implementation of the Decorator pattern
+        //
+        // get user choices
+        boolean extraToppings = chkExtraToppings.isSelected();
+        boolean specialPackaging = chkExtraPackaging.isSelected();
+        
+        // create a basic pizza (charge: 0)
+        PizzaDecorator pd = new BasicPizza();
+        
+        // according to user choices, calculate extra charges if any
+        if(extraToppings){
+            pd = new ExtraToppingDecorator(pd);
+        }
+        if(specialPackaging){
+            pd = new PackagingDecorator(pd);
+        }
+        
+        // final message
+        String finalDescription = pd.getDescription() +" added as extra options.\nExtra Fees: " + pd.getCost();
+        
+        // out
+        txtDescription.setText(txtDescription.getText().trim() + "\n=============================\n" + finalDescription);
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //
+        // ** This is an implementation of the Builder pattern
+        //
         // Variables
         String PizzaName = txtName.getText();
         String PizzaCrust = cmbCrust.getSelectedItem() != null ? cmbCrust.getSelectedItem().toString() : "";
         String PizzaSauce = cmbSauce.getSelectedItem() != null ? cmbSauce.getSelectedItem().toString() : "";
         String PizzaCheese = cmbCheese.getSelectedItem() != null ? cmbCheese.getSelectedItem().toString() : "";
-        String PizzaTopping1 = cmbToppings1.getSelectedItem() != null ? cmbToppings1.getSelectedItem().toString() : "";
-        String PizzaTopping2 = cmbToppings2.getSelectedItem() != null ? cmbToppings2.getSelectedItem().toString() : "";
-        String PizzaTopping3 = cmbToppings3.getSelectedItem() != null ? cmbToppings3.getSelectedItem().toString() : "";
+        String PizzaTopping = cmbToppings.getSelectedItem() != null ? cmbToppings.getSelectedItem().toString() : "";
         String PizzaSize = rbgSize.getSelection() != null ? rbgSize.getSelection().getActionCommand() : "";
 
         // Validation
@@ -294,9 +337,7 @@ public class PizzaDashboard extends javax.swing.JFrame {
                     .withCrust(PizzaCrust)
                     .withSauce(PizzaSauce)
                     .withCheese(PizzaCheese)
-                    .addTopping(PizzaTopping1)
-                    .addTopping(PizzaTopping2)
-                    .addTopping(PizzaTopping3);
+                    .addTopping(PizzaTopping);
 
             // Size logic
             switch (PizzaSize) {
@@ -319,12 +360,15 @@ public class PizzaDashboard extends javax.swing.JFrame {
                     + "\nToppings: " + String.join(", ", pizza.getToppings())
                     + "\nCheese: " + pizza.getCheese()
                     + "\nSize: " + pizza.getSize()
-                    + "\nPrice: $" + pizza.getPrice(),
+                    + "\nUnit Price: " + pizza.getPrice(),
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);
 
-            // Add to list & refresh table
+            // Add pizza to pizza list & refresh table
             pizzaList.add(pizza);
             refreshPizzaTable();
+            
+            // handle extra requests
+            ExtraOptions();
 
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Input!",
@@ -347,12 +391,12 @@ public class PizzaDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox chkExtraPackaging;
+    private javax.swing.JCheckBox chkExtraToppings;
     private javax.swing.JComboBox<String> cmbCheese;
     private javax.swing.JComboBox<String> cmbCrust;
     private javax.swing.JComboBox<String> cmbSauce;
-    private javax.swing.JComboBox<String> cmbToppings1;
-    private javax.swing.JComboBox<String> cmbToppings2;
-    private javax.swing.JComboBox<String> cmbToppings3;
+    private javax.swing.JComboBox<String> cmbToppings;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -368,9 +412,12 @@ public class PizzaDashboard extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblDescription;
     private javax.swing.JTable pizzaTable;
     private javax.swing.ButtonGroup rbgSize;
+    private javax.swing.JTextArea txtDescription;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }
