@@ -1,11 +1,10 @@
 package PizzaPackage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Pizza {
 
-    private String name;
+    private String pizza_id;
+    private String user_id;
+    private String pizza_name;
     private String crust;
     private String sauce;
     private String cheese;
@@ -14,7 +13,9 @@ public class Pizza {
     private double price;
 
     private Pizza(PizzaBuilder builder) {
-        this.name = builder.name;
+        this.pizza_id = builder.pizza_id;
+        this.user_id = builder.user_id;
+        this.pizza_name = builder.pizza_name;
         this.crust = builder.crust;
         this.sauce = builder.sauce;
         this.cheese = builder.cheese;
@@ -89,8 +90,16 @@ public class Pizza {
     }
 
     // Getters
+    public String getID(){
+        return pizza_id;
+    }
+    
+    public String getUserID(){
+        return user_id;
+    }
+    
     public String getName() {
-        return name;
+        return pizza_name;
     }
 
     public String getCrust() {
@@ -119,16 +128,27 @@ public class Pizza {
 
     // Builder Pattern Implementation
     public static class PizzaBuilder {
-
-        private String name;
+        private String pizza_id;
+        private String user_id;
+        private String pizza_name;
         private String crust;
         private String sauce;
         private String cheese;
         private String toppings;
         private Size size = Size.MEDIUM;
+        
+        public PizzaBuilder withID(String ID){
+            this.pizza_id = ID;
+            return this;
+        }
+        
+        public PizzaBuilder withUserID(String userID){
+            this.user_id = userID;
+            return this;
+        }
 
         public PizzaBuilder withName(String name) {
-            this.name = name;
+            this.pizza_name = name;
             return this;
         }
 
@@ -175,75 +195,5 @@ public class Pizza {
         public double getPriceMultiplier() {
             return priceMultiplier;
         }
-    }
-}
-
-// Decorators for extra features
-interface PizzaDecorator{
-    String getDescription();
-    double getCost();
-}
-
-
-class BasicPizza implements PizzaDecorator {
-    @Override
-    public String getDescription() {
-        return "Basic Pizza";
-    }
-
-    @Override
-    public double getCost() {
-        return 0.0;
-    }
-}
-
-abstract class ExtraFeatures implements PizzaDecorator {
-    protected PizzaDecorator decoratedPizza;
-
-    public ExtraFeatures(PizzaDecorator decoratedPizza) {
-        this.decoratedPizza = decoratedPizza;
-    }
-
-    @Override
-    public String getDescription() {
-        return decoratedPizza.getDescription();
-    }
-
-    @Override
-    public double getCost() {
-        return decoratedPizza.getCost();
-    }
-}
-
-class PackagingDecorator extends ExtraFeatures {
-    public PackagingDecorator(PizzaDecorator decoratedPizza) {
-        super(decoratedPizza);
-    }
-
-    @Override
-    public String getDescription() {
-        return super.getDescription() + ", Special Packaging";
-    }
-
-    @Override
-    public double getCost() {
-        return super.getCost() + 250.0;
-    }
-}
-
-
-class ExtraToppingDecorator extends ExtraFeatures {
-    public ExtraToppingDecorator(PizzaDecorator decoratedPizza) {
-        super(decoratedPizza);
-    }
-
-    @Override
-    public String getDescription() {
-        return super.getDescription() + ", Extra Toppings";
-    }
-
-    @Override
-    public double getCost() {
-        return super.getCost() + 350.0;
     }
 }

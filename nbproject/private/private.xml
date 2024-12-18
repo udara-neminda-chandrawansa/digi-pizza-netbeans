@@ -5,8 +5,11 @@
         <group>
             <file>file:/C:/Users/UNC/Documents/NetBeansProjects/digi-pizza/src/FeedbackPackage/Customer.java</file>
             <file>file:/C:/Users/UNC/Documents/NetBeansProjects/digi-pizza/src/PizzaPackage/Pizza.java</file>
+            <file>file:/C:/Users/UNC/Documents/NetBeansProjects/digi-pizza/src/FeedbackPackage/StatusNotifier.java</file>
             <file>file:/C:/Users/UNC/Documents/NetBeansProjects/digi-pizza/src/PizzaPackage/PizzaDashboard.java</file>
             <file>file:/C:/Users/UNC/Documents/NetBeansProjects/digi-pizza/src/FeedbackPackage/Observer.java</file>
+            <file>file:/C:/Users/UNC/Documents/NetBeansProjects/digi-pizza/src/FeedbackPackage/Feedback.java</file>
+            <file>file:/C:/Users/UNC/Documents/NetBeansProjects/digi-pizza/src/FeedbackPackage/FeedbackForm.java</file>
             <file>file:/C:/Users/UNC/Documents/NetBeansProjects/digi-pizza/src/OrderPackage/Order.java</file>
             <file>file:/C:/Users/UNC/Documents/NetBeansProjects/digi-pizza/src/DashboardPackage/Dashboard.java</file>
             <file>file:/C:/Users/UNC/Documents/NetBeansProjects/digi-pizza/src/OrderPackage/OrderForm.java</file>

@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import DashboardPackage.Dashboard;
+import FeedbackPackage.Customer;
+import static FeedbackPackage.CustomerForm.userList;
 
 public class PizzaDashboard extends javax.swing.JFrame {
 
@@ -22,12 +24,22 @@ public class PizzaDashboard extends javax.swing.JFrame {
         jRadioButton1.setActionCommand("Small");
         jRadioButton2.setActionCommand("Medium");
         jRadioButton3.setActionCommand("Large");
-        
+
         // refresh pizza table
         refreshPizzaTable();
+
+        // load users
+        loadUsers();
     }
 
     @SuppressWarnings("unchecked")
+
+    public void loadUsers() {
+        for (Customer item : userList) {
+            // add to cmbUserID
+            cmbUserID.addItem(item.getID());
+        }
+    }
 
     private void refreshPizzaTable() {
         // get the current table model from the target table
@@ -36,7 +48,7 @@ public class PizzaDashboard extends javax.swing.JFrame {
         model.setRowCount(0);
         for (Pizza pizza : pizzaList) {
             // add a new row with new data
-            model.addRow(new Object[]{"" + pizza.getName(), pizza.getCrust(), pizza.getSauce(),
+            model.addRow(new Object[]{"" + pizza.getID(), pizza.getName(), pizza.getCrust(), pizza.getSauce(),
                 pizza.getToppings(), pizza.getCheese(), pizza.getSize(), pizza.getPrice()});
         };
     }
@@ -63,14 +75,12 @@ public class PizzaDashboard extends javax.swing.JFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
-        jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         pizzaTable = new javax.swing.JTable();
-        lblDescription = new javax.swing.JLabel();
-        chkExtraPackaging = new javax.swing.JCheckBox();
-        chkExtraToppings = new javax.swing.JCheckBox();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        txtDescription = new javax.swing.JTextArea();
+        jLabel8 = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        cmbUserID = new javax.swing.JComboBox<>();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -158,21 +168,19 @@ public class PizzaDashboard extends javax.swing.JFrame {
         rbgSize.add(jRadioButton3);
         jRadioButton3.setText("Large");
 
-        jLabel7.setText("Size");
-
         pizzaTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Name", "Crust", "Sauce", "Toppings", "Cheese", "Size", "Price (1)"
+                "ID", "Name", "Crust", "Sauce", "Toppings", "Cheese", "Size", "Price (1)"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                true, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -185,15 +193,9 @@ public class PizzaDashboard extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(pizzaTable);
 
-        lblDescription.setText("Process Output:");
+        jLabel8.setText("ID");
 
-        chkExtraPackaging.setText("Extra Packaging");
-
-        chkExtraToppings.setText("Extra Toppings");
-
-        txtDescription.setColumns(20);
-        txtDescription.setRows(5);
-        jScrollPane4.setViewportView(txtDescription);
+        jLabel9.setText("User ID");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -203,11 +205,7 @@ public class PizzaDashboard extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDescription)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane4))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -218,19 +216,22 @@ public class PizzaDashboard extends javax.swing.JFrame {
                             .addComponent(cmbToppings, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(cmbCheese, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(115, 115, 115)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jRadioButton1)
-                                .addComponent(jRadioButton3))
-                            .addComponent(jLabel7)
-                            .addComponent(chkExtraPackaging)
-                            .addComponent(chkExtraToppings)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel9)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jRadioButton1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jRadioButton2)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jRadioButton3))
+                                .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(cmbUserID, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
+                            .addComponent(jLabel8))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -238,89 +239,56 @@ public class PizzaDashboard extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cmbCrust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbCrust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(cmbSauce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel4)
-                        .addGap(19, 19, 19)
-                        .addComponent(cmbToppings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbSauce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton3)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(chkExtraPackaging))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5)))
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel9))
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbToppings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbUserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkExtraToppings)
+                    .addComponent(jLabel5)
+                    .addComponent(jRadioButton3)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton1))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
                     .addComponent(cmbCheese, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDescription)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void ExtraOptions(){
-        //
-        // ** This is an implementation of the Decorator pattern
-        //
-        // get user choices
-        boolean extraToppings = chkExtraToppings.isSelected();
-        boolean specialPackaging = chkExtraPackaging.isSelected();
-        
-        // create a basic pizza (charge: 0)
-        PizzaDecorator pd = new BasicPizza();
-        
-        // according to user choices, calculate extra charges if any
-        if(extraToppings){
-            pd = new ExtraToppingDecorator(pd);
-        }
-        if(specialPackaging){
-            pd = new PackagingDecorator(pd);
-        }
-        
-        // final message
-        String finalDescription = pd.getDescription() +" added as extra options.\nExtra Fees: " + pd.getCost();
-        
-        // out
-        txtDescription.setText(txtDescription.getText().trim() + "\n=============================\n" + finalDescription);
-    }
-    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //
         // ** This is an implementation of the Builder pattern
         //
         // Variables
+        String PizzaID = txtID.getText();
+        String userID = cmbUserID.getSelectedItem() != null ? cmbUserID.getSelectedItem().toString() : "";
         String PizzaName = txtName.getText();
         String PizzaCrust = cmbCrust.getSelectedItem() != null ? cmbCrust.getSelectedItem().toString() : "";
         String PizzaSauce = cmbSauce.getSelectedItem() != null ? cmbSauce.getSelectedItem().toString() : "";
@@ -329,10 +297,12 @@ public class PizzaDashboard extends javax.swing.JFrame {
         String PizzaSize = rbgSize.getSelection() != null ? rbgSize.getSelection().getActionCommand() : "";
 
         // Validation
-        if (PizzaName != null && !PizzaName.trim().isEmpty() && PizzaSize != null && !PizzaSize.trim().isEmpty()) {
+        if (PizzaID != null && !PizzaID.trim().isEmpty() && PizzaName != null && !PizzaName.trim().isEmpty() && PizzaSize != null && !PizzaSize.trim().isEmpty()) {
 
             // Build Pizza
             Pizza.PizzaBuilder pizzaBuilder = new Pizza.PizzaBuilder()
+                    .withID(PizzaID)
+                    .withUserID(userID)
                     .withName(PizzaName)
                     .withCrust(PizzaCrust)
                     .withSauce(PizzaSauce)
@@ -354,21 +324,10 @@ public class PizzaDashboard extends javax.swing.JFrame {
 
             // Build & Output
             Pizza pizza = pizzaBuilder.build();
-            JOptionPane.showMessageDialog(this, "Pizza Name: " + pizza.getName()
-                    + "\nCrust: " + pizza.getCrust()
-                    + "\nSauce: " + pizza.getSauce()
-                    + "\nToppings: " + String.join(", ", pizza.getToppings())
-                    + "\nCheese: " + pizza.getCheese()
-                    + "\nSize: " + pizza.getSize()
-                    + "\nUnit Price: " + pizza.getPrice(),
-                    "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);
 
             // Add pizza to pizza list & refresh table
             pizzaList.add(pizza);
             refreshPizzaTable();
-            
-            // handle extra requests
-            ExtraOptions();
 
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Input!",
@@ -391,12 +350,11 @@ public class PizzaDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox chkExtraPackaging;
-    private javax.swing.JCheckBox chkExtraToppings;
     private javax.swing.JComboBox<String> cmbCheese;
     private javax.swing.JComboBox<String> cmbCrust;
     private javax.swing.JComboBox<String> cmbSauce;
     private javax.swing.JComboBox<String> cmbToppings;
+    private javax.swing.JComboBox<String> cmbUserID;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -405,19 +363,18 @@ public class PizzaDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lblDescription;
     private javax.swing.JTable pizzaTable;
     private javax.swing.ButtonGroup rbgSize;
-    private javax.swing.JTextArea txtDescription;
+    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }
