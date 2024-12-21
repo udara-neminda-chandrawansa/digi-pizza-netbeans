@@ -171,7 +171,7 @@ public class CustomerForm extends javax.swing.JFrame {
         String telno = txtTelNo.getText();
 
         try {
-            Customer cus = new Customer(userID, userName, password, email, telno);
+            Customer cus = new Customer(userID, userName, password, email, telno, 0f);
             userList.add(cus);
             JOptionPane.showMessageDialog(this, "Customer Registered Successfully!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);

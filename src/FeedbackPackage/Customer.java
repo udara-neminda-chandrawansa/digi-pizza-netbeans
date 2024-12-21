@@ -9,17 +9,27 @@ public class Customer implements Observer {
     private String password;
     private String email;
     private String telNo;
+    private float loyalty;
 
-    public Customer(String id, String name, String password ,String email, String telNo) {
+    public Customer(String id, String name, String password ,String email, String telNo, float loyalty) {
         this.user_id = id;
         this.username = name;
         this.password = password;
         this.email = email;
         this.telNo = telNo;
+        this.loyalty = loyalty;
     }
     
     public String getID(){
         return this.user_id;
+    }
+    
+    public float getLoyalty(){
+        return this.loyalty;
+    }
+    
+    public void addLoyalty(float loyalty){
+        this.loyalty += loyalty;
     }
 
     @Override

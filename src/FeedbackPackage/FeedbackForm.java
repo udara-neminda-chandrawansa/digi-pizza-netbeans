@@ -4,10 +4,15 @@ import DashboardPackage.Dashboard;
 import static FeedbackPackage.CustomerForm.userList;
 import OrderPackage.Order;
 import static OrderPackage.OrderForm.completedOrderList;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class FeedbackForm extends javax.swing.JFrame {
+    
+    // completed order list
+    public static ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
 
     public FeedbackForm() {
         initComponents();
@@ -17,6 +22,7 @@ public class FeedbackForm extends javax.swing.JFrame {
 
         loadOrders();
         loadUsers();
+        refreshFeedbackTable();
     }
 
     @SuppressWarnings("unchecked")
@@ -35,6 +41,8 @@ public class FeedbackForm extends javax.swing.JFrame {
         cmbUserID = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         txtFeedbackID = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblFeedback = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -92,6 +100,24 @@ public class FeedbackForm extends javax.swing.JFrame {
 
         jLabel5.setText("Feedback ID");
 
+        tblFeedback.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Feedback ID", "Order ID", "User ID", "Feedback"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblFeedback);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,23 +126,21 @@ public class FeedbackForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(cmbOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(45, 45, 45)
-                                .addComponent(txtFeedbackID)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtFeedbackID, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -136,9 +160,11 @@ public class FeedbackForm extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtFeedbackID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -167,6 +193,26 @@ public class FeedbackForm extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    
+    private DefaultTableModel clearFeedbackTable() {
+        // get the current table model from the target table
+        DefaultTableModel model = (DefaultTableModel) tblFeedback.getModel();
+        // clear rows
+        model.setRowCount(0);
+        // return model
+        return model;
+    }
+    
+    private void refreshFeedbackTable() {
+        // clear table before adding items
+        DefaultTableModel model = clearFeedbackTable();
+        // go through each completed order
+        for (Feedback item : feedbackList) {
+            // add new row
+            model.addRow(new Object[]{"" + item.getID(), item.getOrderID(), item.getUserID(), item.getText()});
+        }
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // vars
         String feedbackID = txtFeedbackID.getText();
@@ -188,6 +234,10 @@ public class FeedbackForm extends javax.swing.JFrame {
             // out
             JOptionPane.showMessageDialog(this, "Feedback Created Successfully!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);
+            // add feedback to list
+            feedbackList.add(fdb);
+            // refresh table
+            refreshFeedbackTable();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Failed Feedback Creation!: " + ex,
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
@@ -240,6 +290,8 @@ public class FeedbackForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tblFeedback;
     private javax.swing.JTextArea txtFeedback;
     private javax.swing.JTextField txtFeedbackID;
     // End of variables declaration//GEN-END:variables

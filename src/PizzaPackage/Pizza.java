@@ -11,6 +11,7 @@ public class Pizza {
     private String toppings;
     private Size size;
     private double price;
+    private int rating;
 
     private Pizza(PizzaBuilder builder) {
         this.pizza_id = builder.pizza_id;
@@ -21,6 +22,7 @@ public class Pizza {
         this.cheese = builder.cheese;
         this.toppings = builder.toppings;
         this.size = builder.size;
+        this.rating = builder.rating;
         calculatePrice();
     }
 
@@ -125,6 +127,15 @@ public class Pizza {
     public double getPrice() {
         return price;
     }
+    
+    public double getRating() {
+        return rating;
+    }
+    
+    // set rating
+    public void setRating(int newRating){
+        this.rating = newRating;
+    }
 
     // Builder Pattern Implementation
     public static class PizzaBuilder {
@@ -136,6 +147,7 @@ public class Pizza {
         private String cheese;
         private String toppings;
         private Size size = Size.MEDIUM;
+        private int rating;
         
         public PizzaBuilder withID(String ID){
             this.pizza_id = ID;
@@ -174,6 +186,11 @@ public class Pizza {
 
         public PizzaBuilder withSize(Size size) {
             this.size = size;
+            return this;
+        }
+        
+        public PizzaBuilder withRating(int rating){
+            this.rating = rating;
             return this;
         }
 

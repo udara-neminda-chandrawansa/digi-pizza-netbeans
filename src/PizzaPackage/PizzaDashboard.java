@@ -49,7 +49,7 @@ public class PizzaDashboard extends javax.swing.JFrame {
         for (Pizza pizza : pizzaList) {
             // add a new row with new data
             model.addRow(new Object[]{"" + pizza.getID(), pizza.getName(), pizza.getCrust(), pizza.getSauce(),
-                pizza.getToppings(), pizza.getCheese(), pizza.getSize(), pizza.getPrice()});
+                pizza.getToppings(), pizza.getCheese(), pizza.getSize(), pizza.getPrice(), pizza.getRating()});
         };
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -173,14 +173,14 @@ public class PizzaDashboard extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Name", "Crust", "Sauce", "Toppings", "Cheese", "Size", "Price (1)"
+                "ID", "Name", "Crust", "Sauce", "Toppings", "Cheese", "Size", "Price (1)", "Rating"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -205,7 +205,7 @@ public class PizzaDashboard extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -307,7 +307,8 @@ public class PizzaDashboard extends javax.swing.JFrame {
                     .withCrust(PizzaCrust)
                     .withSauce(PizzaSauce)
                     .withCheese(PizzaCheese)
-                    .addTopping(PizzaTopping);
+                    .addTopping(PizzaTopping)
+                    .withRating(1);
 
             // Size logic
             switch (PizzaSize) {

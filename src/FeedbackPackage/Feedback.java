@@ -12,6 +12,24 @@ public class Feedback {
         this.order_id = order_id;
         this.feedback_text = feedbackText;
     }
+    
+    // getters
+    
+    public String getID(){
+        return this.feedback_id;
+    }
+    
+    public String getUserID(){
+        return this.user_id;
+    }
+    
+    public String getOrderID(){
+        return this.order_id;
+    }
+    
+    public String getText(){
+        return this.feedback_text;
+    }
 }
 
 

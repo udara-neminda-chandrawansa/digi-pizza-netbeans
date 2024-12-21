@@ -2,6 +2,7 @@ package OrderPackage;
 
 import PizzaPackage.Pizza;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Order {
     private String order_id;
@@ -10,14 +11,14 @@ public class Order {
     private double order_price;
     private String order_type;
     private OrderState order_state;
-    private ArrayList<Pizza> order_items;
+    private ArrayList<Map<Pizza, Integer>> order_items;
     
     // Default constructor
     public Order() {
         this.order_items = new ArrayList<>(); // Initialize order_items
     }
     
-    public Order (String orderID, String userID, String orderName, double orderPrice, String orderType ,OrderState orderState, ArrayList<Pizza> orderItems){
+    public Order (String orderID, String userID, String orderName, double orderPrice, String orderType ,OrderState orderState, ArrayList<Map<Pizza, Integer>> orderItems){
         this.order_id = orderID;
         this.user_id = userID;
         this.order_name = orderName;
@@ -51,11 +52,11 @@ public class Order {
         return this.order_state;
     }
     
-    public ArrayList<Pizza> getOrderItems(){
+    public ArrayList<Map<Pizza, Integer>> getOrderItems(){
         return this.order_items;
     }
     
-    public void addOrderItem(Pizza newOrderItem){
+    public void addOrderItem(Map<Pizza, Integer> newOrderItem){
         this.order_items.add(newOrderItem);
     }
     
@@ -83,13 +84,21 @@ public class Order {
         this.order_state = newState;
     }
 
-    String pickUp() {
-        return "0";
-    }
+    String pickUp() {return "";}
     
-    String acceptDelivery(){
-        return "0";
-    }
+    String acceptDelivery(){return "";}
+    
+    String getDeliveryAddress() {return "";}
+    
+    String getCurrentLocation(){return "";}
+    
+    String getDeliveryEmployee(){return "";}
+
+    void setDeliveryAddress(String deliveryAddress) {}
+    
+    void setCurrentLocation(String curLocation){}
+    
+    void setDeliveryEmployee(String deliveryEmp){}
 }
 
 //
@@ -99,7 +108,7 @@ public class Order {
 class PickupOrder extends Order {
     PickupOrder(){}
     
-    private PickupOrder(String order_id, String user_id ,String order_name, double order_price, String order_type, OrderState order_state, ArrayList<Pizza> order_items) {
+    private PickupOrder(String order_id, String user_id ,String order_name, double order_price, String order_type, OrderState order_state, ArrayList<Map<Pizza, Integer>> order_items) {
         super(order_id, user_id ,order_name, order_price, order_type, order_state, order_items); // Call the constructor of the parent class
     }
 
@@ -116,7 +125,7 @@ class DeliveryOrder extends Order {
     
     DeliveryOrder(){}
 
-    public DeliveryOrder(String order_id, String user_id ,String order_name, double order_price, String order_type, OrderState order_state, ArrayList<Pizza> order_items) {
+    public DeliveryOrder(String order_id, String user_id ,String order_name, double order_price, String order_type, OrderState order_state, ArrayList<Map<Pizza, Integer>> order_items) {
         super(order_id, user_id ,order_name, order_price, order_type, order_state, order_items); // Call the constructor of the parent class
     }
     
@@ -187,9 +196,9 @@ class CreateOrderCommand implements OrderCommand {
 
 class AddItemCommand implements OrderCommand {
     private Order order;
-    private Pizza pizza;
+    private Map<Pizza, Integer> pizza;
 
-    public AddItemCommand(Order order, Pizza pizza) {
+    public AddItemCommand(Order order, Map<Pizza, Integer> pizza) {
         this.order = order;
         this.pizza = pizza;
     }
@@ -197,7 +206,7 @@ class AddItemCommand implements OrderCommand {
     @Override
     public void execute() {
         order.addOrderItem(pizza);
-        System.out.println("Pizza Added: " + pizza.getName());
+//        System.out.println("Pizza Added: " + pizza.keySet().getName());
     }
 }
 
