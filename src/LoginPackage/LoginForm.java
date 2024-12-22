@@ -100,13 +100,14 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // vars
         String username = txtUsername.getText();
         String password = txtPassword.getText();
-        
+        // validation
         if("admin".equals(username) && "123".equals(password)){
             new Dashboard().setVisible(true); // show dashboard
             this.setVisible(false);
-        } else {
+        } else { // login failed
             JOptionPane.showMessageDialog(this, "Login Failed: Invalid Credentials!", "Aurora Skin Care Clinic", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed

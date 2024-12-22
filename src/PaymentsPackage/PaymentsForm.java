@@ -1,8 +1,6 @@
 package PaymentsPackage;
 
 import DashboardPackage.Dashboard;
-import FeedbackPackage.Customer;
-import static FeedbackPackage.CustomerForm.userList;
 import OrderPackage.Order;
 import static OrderPackage.OrderForm.completedOrderList;
 import static PaymentsPackage.PromotionsForm.promoList;
@@ -144,12 +142,12 @@ public class PaymentsForm extends javax.swing.JFrame {
         // vars
         String orderID = cmbOrders.getSelectedItem().toString();
         String paymentMethod = cmbPaymentMethod.getSelectedItem().toString();
-
+        // initialize promotions
         PromotionStrategy promotion;
         PaymentStrategy payment;
         double paidAmount;
         float payingPercentage = 100f;
-
+        // go through each promotion in promoList (only has 1 promotion max at all times)
         for (Promotion item : promoList) {
             payingPercentage = (payingPercentage - (float) item.getDiscount());
         }
@@ -159,16 +157,19 @@ public class PaymentsForm extends javax.swing.JFrame {
             if (item.getOrderID().equals(orderID)) {
                 // initialize promotion
                 promotion = new ApplyPromotion();
+                // verify pay method
                 if ("Credit Card".equals(paymentMethod)) {
                     payment = new CreditCardPayment(); // Use Credit Card payment
                 } else {
                     payment = new PayPalPayment(); // Use PayPal payment
                 }
+                // calculate payment amount using `PromotionStrategy`
                 paidAmount = promotion.applyDiscount(item.getOrderPrice(), payingPercentage);
+                // display payment details
                 JOptionPane.showMessageDialog(this, "Original Price: $" + item.getOrderPrice()
                         + "\nDiscounted Price: $" + (item.getOrderPrice() - paidAmount) + "\nPaid Percentage: " + payingPercentage + "%",
                         "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);
-
+                // call `pay` method to display paid total
                 payment.pay(paidAmount, this);
             }
         }

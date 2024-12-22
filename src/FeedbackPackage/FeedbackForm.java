@@ -193,7 +193,6 @@ public class FeedbackForm extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    
     private DefaultTableModel clearFeedbackTable() {
         // get the current table model from the target table
         DefaultTableModel model = (DefaultTableModel) tblFeedback.getModel();
@@ -238,7 +237,7 @@ public class FeedbackForm extends javax.swing.JFrame {
             feedbackList.add(fdb);
             // refresh table
             refreshFeedbackTable();
-        } catch (Exception ex) {
+        } catch (Exception ex) { // error handler
             JOptionPane.showMessageDialog(this, "Failed Feedback Creation!: " + ex,
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }

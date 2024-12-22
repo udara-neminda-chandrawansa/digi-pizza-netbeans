@@ -12,7 +12,7 @@ public class Pizza {
     private Size size;
     private double price;
     private int rating;
-
+    // using PizzaBuilder, create a pizza (Builder method implementation)
     private Pizza(PizzaBuilder builder) {
         this.pizza_id = builder.pizza_id;
         this.user_id = builder.user_id;
@@ -137,7 +137,7 @@ public class Pizza {
         this.rating = newRating;
     }
 
-    // Builder Pattern Implementation
+    // ** Builder Pattern Implementation
     public static class PizzaBuilder {
         private String pizza_id;
         private String user_id;
@@ -179,7 +179,7 @@ public class Pizza {
             return this;
         }
 
-        public PizzaBuilder addTopping(String topping) {
+        public PizzaBuilder withTopping(String topping) {
             this.toppings = topping;
             return this;
         }

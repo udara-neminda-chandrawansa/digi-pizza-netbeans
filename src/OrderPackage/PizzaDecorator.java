@@ -1,12 +1,14 @@
 package OrderPackage;
 
-// Decorators for extra features
+//
+// ** Decorators for extra features (Decorator Pattern implementation)
+//
 public interface PizzaDecorator{
     String getDescription();
     double getCost();
 }
 
-
+// pizza with no-extra features
 class BasicPizza implements PizzaDecorator {
     @Override
     public String getDescription() {
@@ -36,7 +38,7 @@ abstract class ExtraFeatures implements PizzaDecorator {
         return decoratedPizza.getCost();
     }
 }
-
+// extra packaging feature
 class PackagingDecorator extends ExtraFeatures {
     public PackagingDecorator(PizzaDecorator decoratedPizza) {
         super(decoratedPizza);
@@ -53,7 +55,7 @@ class PackagingDecorator extends ExtraFeatures {
     }
 }
 
-
+// extra toppings feature
 class ExtraToppingDecorator extends ExtraFeatures {
     public ExtraToppingDecorator(PizzaDecorator decoratedPizza) {
         super(decoratedPizza);

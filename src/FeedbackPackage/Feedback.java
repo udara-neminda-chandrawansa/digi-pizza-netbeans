@@ -32,7 +32,7 @@ public class Feedback {
     }
 }
 
-
+// ** using command pattern for feedback creation
 interface FeedbackCommand {
     void execute();
 }
@@ -60,7 +60,7 @@ class CreateFeedbackCommand implements FeedbackCommand {
     }
 }
 
-
+// invoker
 class FeedbackInvoker {
     private FeedbackCommand command;
 

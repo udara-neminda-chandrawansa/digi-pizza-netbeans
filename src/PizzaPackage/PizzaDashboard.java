@@ -1,7 +1,6 @@
 package PizzaPackage;
 
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -307,7 +306,7 @@ public class PizzaDashboard extends javax.swing.JFrame {
                     .withCrust(PizzaCrust)
                     .withSauce(PizzaSauce)
                     .withCheese(PizzaCheese)
-                    .addTopping(PizzaTopping)
+                    .withTopping(PizzaTopping)
                     .withRating(1);
 
             // Size logic
@@ -330,7 +329,7 @@ public class PizzaDashboard extends javax.swing.JFrame {
             pizzaList.add(pizza);
             refreshPizzaTable();
 
-        } else {
+        } else { // invalid input message
             JOptionPane.showMessageDialog(this, "Invalid Input!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }

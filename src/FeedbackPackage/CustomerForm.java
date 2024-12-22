@@ -171,12 +171,13 @@ public class CustomerForm extends javax.swing.JFrame {
         String telno = txtTelNo.getText();
 
         try {
+            // create customer obj
             Customer cus = new Customer(userID, userName, password, email, telno, 0f);
-            userList.add(cus);
+            userList.add(cus); // add this to `userList` and display msg
             JOptionPane.showMessageDialog(this, "Customer Registered Successfully!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Customer Registration Failed!",
+        } catch (Exception ex) { // error handler
+            JOptionPane.showMessageDialog(this, "Customer Registration Failed!: " + ex,
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed

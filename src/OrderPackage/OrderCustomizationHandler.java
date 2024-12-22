@@ -1,16 +1,16 @@
 package OrderPackage;
 
 //
-// ** chain of responsibility pattern implementation
+// ** chain of responsibility pattern implementation (for applying extra features)
 //
 abstract class OrderCustomizationHandler {
-
+    // handler which is responsible for customizing the order
     protected OrderCustomizationHandler nextHandler;
-
+    // this can set the next customizer in line
     public void setNextCustomizer(OrderCustomizationHandler nextHandler) {
         this.nextHandler = nextHandler;
     }
-
+    // execution
     public abstract Object[] handleRequest(boolean[] request, PizzaDecorator PD);
 }
 

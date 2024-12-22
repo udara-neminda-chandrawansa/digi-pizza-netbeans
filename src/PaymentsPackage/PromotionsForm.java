@@ -235,18 +235,19 @@ public class PromotionsForm extends javax.swing.JFrame {
         String promoID = txtID.getText();
         String promoName = txtName.getText();
         double discount = (double) spnDiscount.getValue();
-
+        // verify promotion list is empty
         if (promoList.isEmpty()) {
+            // validate vars
             if (!"".equals(promoID) && !"".equals(promoName)) {
                 // create new promotion obj and store in arraylist
                 Promotion pm = new Promotion(promoID, promoName, discount);
                 promoList.add(pm);
                 refreshFeedbackTable();
-            } else {
+            } else { // invalid input msg
                 JOptionPane.showMessageDialog(this, "Invalid Input!",
                         "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
             }
-        } else {
+        } else { // promo list not empty -> err msg
             JOptionPane.showMessageDialog(this, "Only 1 Promotion at a time!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }
@@ -258,10 +259,11 @@ public class PromotionsForm extends javax.swing.JFrame {
         String promoID = txtID.getText();
         String promoName = txtName.getText();
         double discount = (double) spnDiscount.getValue();
-
+        // validate vars
         if (!"".equals(promoID) && !"".equals(promoName)) {
+            // for storing updated promos
             List<Promotion> updatedList = new ArrayList<>();
-
+            // go through each saved promo
             for (Promotion item : promoList) {
                 if (item.getID().equals(promoID)) {
                     // Replace the promotion
@@ -277,7 +279,7 @@ public class PromotionsForm extends javax.swing.JFrame {
             promoList.addAll(updatedList);
 
             refreshFeedbackTable();
-        } else {
+        } else { // invalid input msg
             JOptionPane.showMessageDialog(this, "Invalid Input!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }
@@ -288,9 +290,11 @@ public class PromotionsForm extends javax.swing.JFrame {
         // ** delete promotion
         // vars
         String promoID = txtID.getText();
-
+        // validate vars
         if (!"".equals(promoID)) {
+            // iterator is needed to safely remove the item from list
             Iterator<Promotion> iterator = promoList.iterator();
+            // go through iterator
             while (iterator.hasNext()) {
                 Promotion item = iterator.next();
                 if (item.getID().equals(promoID)) {
@@ -298,7 +302,7 @@ public class PromotionsForm extends javax.swing.JFrame {
                     refreshFeedbackTable();
                 }
             }
-        } else {
+        } else { // invalid input msg
             JOptionPane.showMessageDialog(this, "Invalid Input!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }
@@ -308,15 +312,17 @@ public class PromotionsForm extends javax.swing.JFrame {
         // ** search promotion
         // vars
         String promoID = txtID.getText();
-
+        // validate vars
         if (!"".equals(promoID)) {
+            // go through promo list
             for (Promotion item : promoList) {
                 if (item.getID().equals(promoID)) {
+                    // display info on textfields
                     txtName.setText(item.getName());
                     spnDiscount.setValue(item.getDiscount());
                 }
             }
-        } else {
+        } else { // invalid input msg
             JOptionPane.showMessageDialog(this, "Invalid Input!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }

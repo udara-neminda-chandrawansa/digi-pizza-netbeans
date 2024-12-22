@@ -8,7 +8,6 @@ import PizzaPackage.PizzaDashboard;
 import PizzaPackage.Pizza;
 import javax.swing.JFrame;
 import static PizzaPackage.PizzaDashboard.pizzaList;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,14 +79,6 @@ public class OrderForm extends javax.swing.JFrame {
             // add new row
             model.addRow(new Object[]{"" + item.getOrderID(), item.getOrderName(), item.getOrderType(), item.getOrderPrice(), item.getOrderState()});
         }
-    }
-
-    private void refreshOrderTable(String orderName, String orderType, double orderPrice, String orderState) {
-        // get the current table model from the target table
-        DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
-
-        // add new row
-        model.addRow(new Object[]{"" + orderName, orderType, orderPrice, orderState});
     }
 
     private DefaultTableModel clearOrderTable() {
@@ -261,6 +252,7 @@ public class OrderForm extends javax.swing.JFrame {
 
         txtStateOutput.setColumns(20);
         txtStateOutput.setRows(5);
+        txtStateOutput.setEnabled(false);
         jScrollPane3.setViewportView(txtStateOutput);
 
         jButton7.setText("Clear Controls");
@@ -472,13 +464,13 @@ public class OrderForm extends javax.swing.JFrame {
             itemList.add(pizzaWithQty);
         } else {
             JOptionPane.showMessageDialog(this, "No such pizza!", "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
-        }
+        } // display selected pizza items with relevant qty
         txtOrderItems.setText(txtOrderItems.getText().trim() + "\n" + orderItem + " x " + (int) spnQty.getValue());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public double ExtraOptions() {
         //
-        // Decorator + Chain of Responsibility Pattern Implementation
+        // ** Decorator + Chain of Responsibility Pattern Implementation
         //
 
         // Get user choices
@@ -488,13 +480,10 @@ public class OrderForm extends javax.swing.JFrame {
         // Create a basic pizza (charge: 0)
         PizzaDecorator pd = new BasicPizza();
 
-        //
-        // Chain of Responsibility implementation
-        //
         // Request array for `OrderCustomizationHandler`
         boolean[] req = {extraToppings, specialPackaging};
 
-        // Create the handlers
+        // Create the customization handlers
         OrderCustomizationHandler toppingsCustomizer = new ToppingsCustomization();
         OrderCustomizationHandler packagingCustomizer = new PackagingCustomization();
 
@@ -504,7 +493,7 @@ public class OrderForm extends javax.swing.JFrame {
         // Send request & get results
         Object[] res = toppingsCustomizer.handleRequest(req, pd);
 
-        // Final message
+        // Final message & out
         String finalDescription = "Extra Options: " + res[0].toString() + "\nExtra Fees: " + res[1].toString();
         txtStateOutput.setText(txtStateOutput.getText().trim() + "\n" + finalDescription);
 
@@ -512,6 +501,7 @@ public class OrderForm extends javax.swing.JFrame {
         return (double) res[1];
     }
 
+    // used for giving customer discounts based on loyalty points
     public static double LoyaltyOptions(String userID) {
         double discount = 0;
         for (Customer item : userList) {
@@ -539,12 +529,15 @@ public class OrderForm extends javax.swing.JFrame {
         if (!"".equals(orderID) && !"".equals(userID) && !"".equals(orderName) && !"".equals(orderType)) {
             // create an order using above vars
             if ("Pickup Order".equals(orderType)) {
+                // order type is Pickup - create a pickup order
                 myOrder = new PickupOrder();
             } else {
+                // order type is Delivery - create a delivery order
                 myOrder = new DeliveryOrder();
+                // vars
                 String employee = cmbEmp.getSelectedItem().toString();
                 String destination = cmbDestination.getSelectedItem().toString();
-
+                // set attributes related to delivery order
                 myOrder.setDeliveryAddress(destination);
                 myOrder.setDeliveryEmployee(employee);
                 myOrder.setCurrentLocation("Pizza Shop");
@@ -552,7 +545,7 @@ public class OrderForm extends javax.swing.JFrame {
             // initialize order invoker
             orderInvoker = new OrderInvoker();
 
-            // update order according to recieved info
+            // update order according to recieved basic info
             myOrder.setOrderID(orderID);
             myOrder.setUserID(userID);
             myOrder.setOrderName(orderName);
@@ -563,9 +556,9 @@ public class OrderForm extends javax.swing.JFrame {
             // go through each order item and calculate total
             for (Map<Pizza, Integer> item : itemList) {
                 for (Map.Entry<Pizza, Integer> entry : item.entrySet()) {
-                    System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+                    // key: pizza obj | value: qty (total += pizza price * qty)
                     total += (entry.getKey().getPrice() * entry.getValue());
-                    // while doing that, add pizza to order
+                    // ** while doing that, add pizza to order (command pattern implementation)
                     OrderCommand addItem = new AddItemCommand(myOrder, item);
                     orderInvoker.setCommand(addItem);
                     orderInvoker.executeCommand();
@@ -574,7 +567,7 @@ public class OrderForm extends javax.swing.JFrame {
             // run ExtraOptions and get the extra costs
             total += ExtraOptions();
 
-            // apply discount based on customer loyalty score
+            // apply discount based on customer loyalty points
             total -= LoyaltyOptions(myOrder.getUserID());
 
             // set final price
@@ -597,7 +590,7 @@ public class OrderForm extends javax.swing.JFrame {
             statusNotifier.subscribe(cus);
 
             //
-            // ** using commands to create order (command patter implementation)
+            // ** using commands to create order (command pattern implementation)
             //
             // Create a new order command for changing order state
             OrderCommand createOrder = new CreateOrderCommand(myOrder, orderID, userID, orderName, total, orderType);
@@ -614,7 +607,7 @@ public class OrderForm extends javax.swing.JFrame {
 
             // set current status (triggers notification)
             statusNotifier.setStatus(myOrder.getOrderState().getStatus(), this);
-        } else {
+        } else { // invalid input msg out
             JOptionPane.showMessageDialog(this, "Invalid Input!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }
@@ -628,10 +621,12 @@ public class OrderForm extends javax.swing.JFrame {
         String orderName = txtOrderName.getText();
         String orderType = cmbOrderType.getSelectedItem().toString();
 
-        if ("".equals(txtStateOutput.getText())) { // make sure prev. order is cleared
+        // make sure prev. order is cleared 
+        // (this can be done using `txtStateOutput` because its disabled - only app can modify its contents)
+        if ("".equals(txtStateOutput.getText())) {
             // call method `placeOrder`
             placeOrder(orderID, userID, orderName, orderType);
-        } else {
+        } else { // error msg
             JOptionPane.showMessageDialog(this, "Clear controls before ordering!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }
@@ -640,6 +635,7 @@ public class OrderForm extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // ** Change the order state to "Preparing" (only if the order is currently at `Placed` status)
         if ("Order Placed".equals(myOrder.getOrderState().getStatus())) {
+            // ** command pattern implementation
             OrderCommand changeStateToPreparing = new ChangeOrderStateCommand(myOrder, new PreparationState());
             orderInvoker.setCommand(changeStateToPreparing);
             orderInvoker.executeCommand();
@@ -649,7 +645,7 @@ public class OrderForm extends javax.swing.JFrame {
 
             // set current status (triggers notification)
             statusNotifier.setStatus(myOrder.getOrderState().getStatus(), this);
-        } else {
+        } else { // invalid order status msg
             JOptionPane.showMessageDialog(this, "Invalid Status Detected!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }
@@ -658,6 +654,7 @@ public class OrderForm extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // ** Change the order state to "Ready for Pickup" (only if the order is currently at `Preparing` status)
         if ("Preparing Pizza".equals(myOrder.getOrderState().getStatus())) {
+            // ** command pattern implementation
             OrderCommand changeStateToPickupReady = new ChangeOrderStateCommand(myOrder, new ReadyForPickupState());
             orderInvoker.setCommand(changeStateToPickupReady);
             orderInvoker.executeCommand();
@@ -668,12 +665,15 @@ public class OrderForm extends javax.swing.JFrame {
             // set current status (triggers notification)
             statusNotifier.setStatus(myOrder.getOrderState().getStatus(), this);
 
-            if (myOrder.getOrderType().equals("Delivery Order")) { // this for deliveries only
-                // calculate time of delivery according to destination
+            // this for deliveries only
+            if (myOrder.getOrderType().equals("Delivery Order")) {
+                // * calculate time of delivery according to destination
+                // vars for time related data
+                // (used `java.time.LocalTime` package for these)
                 LocalTime timeNow = LocalTime.now();
                 LocalTime arrivalTime = null;
                 int delayInSeconds = 0;
-
+                // time varies according to delivery destination
                 switch (myOrder.getDeliveryAddress()) {
                     case "Gampaha Railway Station":
                         delayInSeconds = 5;
@@ -699,6 +699,12 @@ public class OrderForm extends javax.swing.JFrame {
                 // out arrival time
                 txtStateOutput.setText(txtStateOutput.getText().trim() + "\nArrival Time: " + arrivalTime);
 
+                /*used these packages for below processes
+                    java.util.concurrent.Executors
+                    java.util.concurrent.ScheduledExecutorService
+                    java.util.concurrent.TimeUnit
+                */
+                
                 // initialize scheduler (for halfway there msg)
                 ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
                 scheduler.schedule(() -> {
@@ -729,6 +735,7 @@ public class OrderForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    // for adding loyalty points to customer after each order completion
     public static float addLoyaltyPoint(String userID) {
         float retValue = 0f;
         for (Customer item : userList) {
@@ -745,6 +752,7 @@ public class OrderForm extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // ** Change the order state to "Order Complete" (only if the order is currently at `Pickup/Delivery` status & canCompleteOrder)
         if ("Ready for Pickup/Delivery".equals(myOrder.getOrderState().getStatus()) && canCompleteOrder) {
+            // ** command pattern implementation
             OrderCommand changeStateToCompleted = new ChangeOrderStateCommand(myOrder, new CompletedState());
             orderInvoker.setCommand(changeStateToCompleted);
             orderInvoker.executeCommand();
@@ -770,7 +778,7 @@ public class OrderForm extends javax.swing.JFrame {
             // out loyalty points
             JOptionPane.showMessageDialog(this, "Congratulations! You now have: " + points + " loyalty points in your account!\nShop more and recieve more points!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);
-        } else {
+        } else { // invalid status msg
             JOptionPane.showMessageDialog(this, "Invalid Status Detected!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }
@@ -794,42 +802,50 @@ public class OrderForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbUserIDActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // if this is a pickup order, pickup
         if ("Pickup Order".equals(myOrder.getOrderType())) {
             JOptionPane.showMessageDialog(this, myOrder.pickUp(), "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);
             canCompleteOrder = true;
-        } else {
+        } else { // else err msg out
             JOptionPane.showMessageDialog(this, "This is not a Pickup Order!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // if this is a delivery order, accept delivery
         if ("Delivery Order".equals(myOrder.getOrderType())) {
             JOptionPane.showMessageDialog(this, myOrder.acceptDelivery(), "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);
             canCompleteOrder = true;
-        } else {
+        } else { // else err msg out
             JOptionPane.showMessageDialog(this, "This is not a Delivery Order!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // make sure prev. order is cleared
         if (txtStateOutput.getText().equals("")) {
+            // var
             String orderID = txtID.getText();
+            // go through each completed order
             for (Order item : completedOrderList) {
                 if (item.getOrderID().equals(orderID)) {
+                    // this is the valid order, get order items from this
                     ArrayList<Map<Pizza, Integer>> orderItems = item.getOrderItems();
+                    // go through each of these pizzas
                     for (Map<Pizza, Integer> pizza : orderItems) {
                         itemList.add(pizza); // add this pizza to the short time list
+                        // display pizza info (Name x Qty) in `txtOrderItems`
                         for (Map.Entry<Pizza, Integer> entry : pizza.entrySet()) {
                             txtOrderItems.setText(entry.getKey().getName() + " x " + entry.getValue());
                         }
                     }
-                    // call method `placeOrder` (implement a uinque order id)
+                    // call method `placeOrder` (implement a unique order id by using `completedOrderList.size()`)
                     placeOrder(orderID + " - " + completedOrderList.size(), item.getUserID(), item.getOrderName(), item.getOrderType());
                 }
             }
-        } else {
+        } else { // error msg out
             JOptionPane.showMessageDialog(this, "Clear controls before re-ordering!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }

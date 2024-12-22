@@ -27,7 +27,7 @@ public class Order {
         this.order_state = orderState;
         this.order_items = orderItems;
     }
-    
+    // getters
     public String getOrderID(){
         return this.order_id;
     }
@@ -55,7 +55,7 @@ public class Order {
     public ArrayList<Map<Pizza, Integer>> getOrderItems(){
         return this.order_items;
     }
-    
+    // setters
     public void addOrderItem(Map<Pizza, Integer> newOrderItem){
         this.order_items.add(newOrderItem);
     }
@@ -83,7 +83,7 @@ public class Order {
     public void setOrderState(OrderState newState){
         this.order_state = newState;
     }
-
+    // methods of children `DeliveryOrder` & `PickupOrder`
     String pickUp() {return "";}
     
     String acceptDelivery(){return "";}
@@ -106,7 +106,7 @@ public class Order {
 //
 
 class PickupOrder extends Order {
-    PickupOrder(){}
+    PickupOrder(){} // null constructor
     
     private PickupOrder(String order_id, String user_id ,String order_name, double order_price, String order_type, OrderState order_state, ArrayList<Map<Pizza, Integer>> order_items) {
         super(order_id, user_id ,order_name, order_price, order_type, order_state, order_items); // Call the constructor of the parent class
@@ -123,7 +123,7 @@ class DeliveryOrder extends Order {
     private String current_location;
     private String emp_id;
     
-    DeliveryOrder(){}
+    DeliveryOrder(){} // null constructor
 
     public DeliveryOrder(String order_id, String user_id ,String order_name, double order_price, String order_type, OrderState order_state, ArrayList<Map<Pizza, Integer>> order_items) {
         super(order_id, user_id ,order_name, order_price, order_type, order_state, order_items); // Call the constructor of the parent class
@@ -163,7 +163,7 @@ class DeliveryOrder extends Order {
 
 
 //
-// ** Command pattern implementation
+// ** Command pattern implementation (for manipulating Orders)
 //
 
 interface OrderCommand {
@@ -194,6 +194,7 @@ class CreateOrderCommand implements OrderCommand {
     }
 }
 
+// used for adding pizzas to an order
 class AddItemCommand implements OrderCommand {
     private Order order;
     private Map<Pizza, Integer> pizza;
@@ -206,10 +207,9 @@ class AddItemCommand implements OrderCommand {
     @Override
     public void execute() {
         order.addOrderItem(pizza);
-//        System.out.println("Pizza Added: " + pizza.keySet().getName());
     }
 }
-
+// used for changing order state (placed, preparing, ready for pickup etc)
 class ChangeOrderStateCommand implements OrderCommand {
     private Order order;
     private OrderState newState;
@@ -225,7 +225,7 @@ class ChangeOrderStateCommand implements OrderCommand {
         System.out.println("Order Status Changed to: " + newState.getStatus());
     }
 }
-
+// invoker
 class OrderInvoker {
     private OrderCommand command;
 
@@ -239,13 +239,13 @@ class OrderInvoker {
 }
 
 //
-// ** State pattern implementation
+// ** State pattern implementation (for deliberating order state/progress)
 //
 interface OrderState {
     void updateStatus(Order order);
     String getStatus();
 }
-
+// user placing the order
 class PlacedState implements OrderState {
     @Override
     public void updateStatus(Order order) {
@@ -257,7 +257,7 @@ class PlacedState implements OrderState {
         return "Order Placed";
     }
 }
-
+// order is being prepared by the pizza shop
 class PreparationState implements OrderState {
     @Override
     public void updateStatus(Order order) {
@@ -269,7 +269,7 @@ class PreparationState implements OrderState {
         return "Preparing Pizza";
     }
 }
-
+// the pizzas are done and can be picked up/delivered now
 class ReadyForPickupState implements OrderState {
     @Override
     public void updateStatus(Order order) {
@@ -281,7 +281,7 @@ class ReadyForPickupState implements OrderState {
         return "Ready for Pickup/Delivery";
     }
 }
-
+// user has accepted the order, finishing the process
 class CompletedState implements OrderState {
     @Override
     public void updateStatus(Order order) {

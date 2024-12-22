@@ -148,7 +148,7 @@ public class RatePizzaForm extends javax.swing.JFrame {
         // go through saved pizzas
         for (Pizza item : PizzaDashboard.pizzaList) {
             if(item.getID().equals(pizzaID)){ // if selected pizza is a real pizza,
-                item.setRating(rating); // apply rating
+                item.setRating(rating); // apply rating & out msg
                 JOptionPane.showMessageDialog(this, "Rating Applied Successfully!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);
             }

@@ -28,14 +28,15 @@ public class Customer implements Observer {
         return this.loyalty;
     }
     
+    // increments loyalty points
     public void addLoyalty(float loyalty){
         this.loyalty += loyalty;
     }
 
+    // for status updates related to orders. inherited from `Observer`
     @Override
     public void recieveStatusUpdate(String status, Component component) {
         JOptionPane.showMessageDialog(component, "Notification to " + username + ": Your order is now " + status,
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);
-        //System.out.println("Notification to " + username + ": Your order is now " + status);
     }
 }
