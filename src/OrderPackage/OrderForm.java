@@ -468,7 +468,7 @@ public class OrderForm extends javax.swing.JFrame {
         txtOrderItems.setText(txtOrderItems.getText().trim() + "\n" + orderItem + " x " + (int) spnQty.getValue());
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public double ExtraOptions() {
+    public double extraOptions() {
         //
         // ** Decorator + Chain of Responsibility Pattern Implementation
         //
@@ -502,7 +502,7 @@ public class OrderForm extends javax.swing.JFrame {
     }
 
     // used for giving customer discounts based on loyalty points
-    public static double LoyaltyOptions(String userID) {
+    public static double loyaltyOptions(String userID) {
         double discount = 0;
         for (Customer item : userList) {
             if (item.getLoyalty() > 3.0) {
@@ -564,11 +564,11 @@ public class OrderForm extends javax.swing.JFrame {
                     orderInvoker.executeCommand();
                 }
             }
-            // run ExtraOptions and get the extra costs
-            total += ExtraOptions();
+            // run extraOptions and get the extra costs
+            total += extraOptions();
 
             // apply discount based on customer loyalty points
-            total -= LoyaltyOptions(myOrder.getUserID());
+            total -= loyaltyOptions(myOrder.getUserID());
 
             // set final price
             myOrder.setOrderPrice(total);
@@ -603,7 +603,8 @@ public class OrderForm extends javax.swing.JFrame {
             orderInvoker.executeCommand();
 
             // Print final order status
-            txtStateOutput.setText(txtStateOutput.getText().trim() + "\nOrder Status: " + myOrder.getOrderState().getStatus());
+            txtStateOutput.setText(txtStateOutput.getText().trim() + "\nOrder Status: " 
+                    + myOrder.getOrderState().getStatus());
 
             // set current status (triggers notification)
             statusNotifier.setStatus(myOrder.getOrderState().getStatus(), this);
@@ -641,7 +642,8 @@ public class OrderForm extends javax.swing.JFrame {
             orderInvoker.executeCommand();
 
             // Print final order status
-            txtStateOutput.setText(txtStateOutput.getText().trim() + "\nOrder Status: " + myOrder.getOrderState().getStatus());
+            txtStateOutput.setText(txtStateOutput.getText().trim() + "\nOrder Status: " 
+                    + myOrder.getOrderState().getStatus());
 
             // set current status (triggers notification)
             statusNotifier.setStatus(myOrder.getOrderState().getStatus(), this);
@@ -660,7 +662,8 @@ public class OrderForm extends javax.swing.JFrame {
             orderInvoker.executeCommand();
             
             // Print final order status
-            txtStateOutput.setText(txtStateOutput.getText().trim() + "\nOrder Status: " + myOrder.getOrderState().getStatus());
+            txtStateOutput.setText(txtStateOutput.getText().trim() + "\nOrder Status: " 
+                    + myOrder.getOrderState().getStatus());
             
             // set current status (triggers notification)
             statusNotifier.setStatus(myOrder.getOrderState().getStatus(), this);
@@ -750,7 +753,8 @@ public class OrderForm extends javax.swing.JFrame {
     }
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // ** Change the order state to "Order Complete" (only if the order is currently at `Pickup/Delivery` status & canCompleteOrder)
+        // ** Change the order state to "Order Complete" (only if the order is currently at 
+        // `Pickup/Delivery` status & canCompleteOrder)
         if ("Ready for Pickup/Delivery".equals(myOrder.getOrderState().getStatus()) && canCompleteOrder) {
             // ** command pattern implementation
             OrderCommand changeStateToCompleted = new ChangeOrderStateCommand(myOrder, new CompletedState());
@@ -758,7 +762,8 @@ public class OrderForm extends javax.swing.JFrame {
             orderInvoker.executeCommand();
 
             // Print final order status
-            txtStateOutput.setText(txtStateOutput.getText().trim() + "\nOrder Status: " + myOrder.getOrderState().getStatus());
+            txtStateOutput.setText(txtStateOutput.getText().trim() + "\nOrder Status: " 
+                    + myOrder.getOrderState().getStatus());
 
             // set current status (triggers notification)
             statusNotifier.setStatus(myOrder.getOrderState().getStatus(), this);
@@ -776,7 +781,8 @@ public class OrderForm extends javax.swing.JFrame {
             float points = addLoyaltyPoint(myOrder.getUserID());
 
             // out loyalty points
-            JOptionPane.showMessageDialog(this, "Congratulations! You now have: " + points + " loyalty points in your account!\nShop more and recieve more points!",
+            JOptionPane.showMessageDialog(this, "Congratulations! You now have: " 
+                    + points + " loyalty points in your account!\nShop more and recieve more points!",
                     "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);
         } else { // invalid status msg
             JOptionPane.showMessageDialog(this, "Invalid Status Detected!",
@@ -804,7 +810,8 @@ public class OrderForm extends javax.swing.JFrame {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // if this is a pickup order, pickup
         if ("Pickup Order".equals(myOrder.getOrderType())) {
-            JOptionPane.showMessageDialog(this, myOrder.pickUp(), "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, myOrder.pickUp(), "Digi-Pizza | Best Pizzas for you!", 
+                    JOptionPane.INFORMATION_MESSAGE);
             canCompleteOrder = true;
         } else { // else err msg out
             JOptionPane.showMessageDialog(this, "This is not a Pickup Order!",
@@ -815,7 +822,8 @@ public class OrderForm extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // if this is a delivery order, accept delivery
         if ("Delivery Order".equals(myOrder.getOrderType())) {
-            JOptionPane.showMessageDialog(this, myOrder.acceptDelivery(), "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, myOrder.acceptDelivery(), "Digi-Pizza | Best Pizzas for you!", 
+                    JOptionPane.INFORMATION_MESSAGE);
             canCompleteOrder = true;
         } else { // else err msg out
             JOptionPane.showMessageDialog(this, "This is not a Delivery Order!",

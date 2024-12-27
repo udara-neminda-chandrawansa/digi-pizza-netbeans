@@ -224,11 +224,11 @@ public class FeedbackForm extends javax.swing.JFrame {
             // new feedback using a new feedback command
             Feedback fdb = new Feedback(feedbackID, userID, orderID, feedbackText);
             // Create a new feedback command
-            FeedbackCommand createOrder = new CreateFeedbackCommand(fdb, feedbackID, userID, orderID, feedbackText);
+            FeedbackCommand createFeedback = new CreateFeedbackCommand(fdb, feedbackID, userID, orderID, feedbackText);
 
             FeedbackInvoker feedbackInvoker = new FeedbackInvoker(); // initialize invoker
             // set command and execute
-            feedbackInvoker.setCommand(createOrder);
+            feedbackInvoker.setCommand(createFeedback);
             feedbackInvoker.executeCommand();
             // out
             JOptionPane.showMessageDialog(this, "Feedback Created Successfully!",

@@ -167,7 +167,8 @@ public class PaymentsForm extends javax.swing.JFrame {
                 paidAmount = promotion.applyDiscount(item.getOrderPrice(), payingPercentage);
                 // display payment details
                 JOptionPane.showMessageDialog(this, "Original Price: $" + item.getOrderPrice()
-                        + "\nDiscounted Price: $" + (item.getOrderPrice() - paidAmount) + "\nPaid Percentage: " + payingPercentage + "%",
+                        + "\nDiscounted Price: $" + (item.getOrderPrice() - paidAmount) 
+                        + "\nPaid Percentage: " + payingPercentage + "%",
                         "Digi-Pizza | Best Pizzas for you!", JOptionPane.INFORMATION_MESSAGE);
                 // call `pay` method to display paid total
                 payment.pay(paidAmount, this);

@@ -1,8 +1,6 @@
 package FeedbackPackage;
 
 import java.awt.Component;
-import java.util.ArrayList;
-import java.util.List;
 
 // ** using state pattern for providing status updates to customers
 interface PizzaShop {

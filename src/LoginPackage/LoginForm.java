@@ -108,7 +108,7 @@ public class LoginForm extends javax.swing.JFrame {
             new Dashboard().setVisible(true); // show dashboard
             this.setVisible(false);
         } else { // login failed
-            JOptionPane.showMessageDialog(this, "Login Failed: Invalid Credentials!", "Aurora Skin Care Clinic", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Login Failed: Invalid Credentials!", "Digi-Pizza | Best Pizzas for you!", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
